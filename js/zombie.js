@@ -264,6 +264,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(clientName.value == ""){
 				var noName = document.createElement('p');
 				noName.innerHTML = "! Please Enter a First Name !";
+				noName.style.color = "yellow";
 				clientName.style.color = "red";
 				clientName.style.border = "1px solid red";
 				mes1.appendChild(noName);
@@ -272,6 +273,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(clientLast.value == ""){
 				var noLname = document.createElement('p');
 				noLname.innerHTML = "! Please Enter a Last Name !";
+				noLname.style.color = "yellow";
 				clientLast.style.color = "red";
 				clientLast.style.border = "1px solid red";
 				mes2.appendChild(noLname);
@@ -280,6 +282,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(zombieName.value == ""){
 				var noZombie = document.createElement('p');
 				noZombie.innerHTML = "! Please Enter Zombies Last Name !";
+				noZombie.style.color = "yellow";
 				zombieName.style.color = "red";
 				zombieName.style.border = "1px solid red";
 				mes4.appendChild(noZombie);
@@ -288,6 +291,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(zombieFirst.value == ""){
 				var noFirst = document.createElement('p');
 				noFirst.innerHTML = "! Please Enter Zombies First Name !";
+				noFirst.style.color = "yellow";
 				zombieFirst.style.color = "red";
 				zombieFirst.style.border = "1px solid red";
 				mes5.appendChild(noFirst);
@@ -297,6 +301,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(!eval.exec(clientEmail.value)){
 				var emailMessage = document.createElement('p');
 				emailMessage.innerHTML = "! Please Enter a Valid Email Address !";
+				emailMessage.style.color = "yellow";
 				clientEmail.style.color = "red";
 				clientEmail.style.border = "1px solid red";
 				mes3.appendChild(emailMessage);
@@ -306,6 +311,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			if(!fone.exec(clientPhone.value)){
 				var phoneMessage = document.createElement('p');
 				phoneMessage.innerHTML = "! Please Enter a Valid Telephone Number !";
+				phoneMessage.style.color = "yellow";
 				clientPhone.style.color = "red";
 				clientPhone.style.border = "1px solid red";
 				mes6.appendChild(phoneMessage);
