@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
 //Global Variables
-var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Grenade", "Crowbar", "Bazooka", "Knife"],
+var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Grenade", "Crowbar", "Bazooka", "Knife"],
 	newCheck = "NO";
 	errorMessage = $('message');
 	mes1 = $('mes1');
@@ -23,7 +23,18 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		var myElement = document.getElementById(x);
 		return myElement;
 	}
-	
+	function radioButtons() {
+		var radios = $('myform').sex;
+		var arr = [];
+		for (i=0, x=radios.length; i<x; i++) {
+			if (radios[i].checked) {
+				var newRadio = radios[i].value;
+				arr.push(newRadio);
+				return newRadio;
+			}
+		}
+		
+	}
 	function hideAndShow(x){
 		switch(x){
 			case "on":
@@ -80,16 +91,6 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			newCheck = "NO";
 		}
 }
-
-	function newRadio(){
-		var radio = $('myform').sex.length;
-		for(var i=0; i<radio; i++){
-			if($('myform').sex[i].checked){
-				var newSex = $('myform').sex[i].value;
-				return newSex;
-			}
-		}
-	}
 	
 	function storeData(key){
 		if(!key){
@@ -97,8 +98,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		}else{
 			keyNum = key;
 		}
-		
-		newRadio();
+		radioButtons();
 		checkValue();
 		var info = {};
 			info.fname		 = ["User First Name", $('fname').value];
@@ -107,7 +107,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			info.tele 		 = ["User Telephone Number", $('clienttelephone').value];
 			info.zname 		 = ["Zombie's First Name", $('firstname').value];
 			info.zlast 		 = ["Zombie's Last Name", $('lastname').value];
-			info.sex 		 = ["Zombie's Sex", newRadio()];
+			info.sex 		 = ["Zombie's Sex", radioButtons()];
 			info.prior 		 = ["Priority", newCheck];
 			info.weap 		 = ["Your Weapon of Choice", $('weapons').value];
 			info.write 		 = ["Users Reason", $('myform').text.value];
@@ -125,12 +125,20 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 }
 
 
-
+	function tempData() {
+		for (var n in json) {
+			var tempKey = Math.floor(Math.random()*1000001);
+			localStorage.setItem(tempKey, JSON.stringify(json[n]));
+			window.location.reload();
+		}
+	}
 
 	function showZombie(){
 		hideAndShow("on");
 		if(localStorage.length === 0){
-			alert("There are no Zombies in the Database!");
+			alert("There are no Zombies in the Database! Temporary data has been added.");
+			tempData();
+			window.location.reload();
 		}else{
 		var newDiv = document.createElement('div');
 		newDiv.setAttribute("id", "data");
@@ -146,7 +154,9 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 			var value = localStorage.getItem(key);
 			var json = JSON.parse(value);
 			var newList = document.createElement('ul');
+			newUl.setAttribute("id", "mainUl");
 			newLi.appendChild(newList);
+			weaponImage(json.weap[1], newList);
 			for(var n in json){
 				var newList = document.createElement('li');
 				newList.setAttribute("class", "print");
@@ -160,7 +170,15 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		}
 	}
 }
-	
+	function weaponImage(imgName, newList) {
+		var liImage = document.createElement('li');
+		liImage.setAttribute("id", "pic");
+		newList.appendChild(liImage);
+		var img = document.createElement('img');
+		var setSrc = img.setAttribute("src", "images/"+ imgName +".png");
+		//img.setAttribute("id", "pic");
+		liImage.appendChild(img);
+	}
 	function newButtons(key, navLi){
 		navLi.style.marginTop = "10px";
 		navLi.style.marginBottom = "20px";
@@ -186,8 +204,6 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		del.innerHTML = delText;
 		navLi.appendChild(del);
 		
-		//var lineBreak = document.createElement('br');
-		//navLi.appendChild(lineBreak);
 	}
 	function delItem(){
 		var check = confirm("Do you want to delete this Zombie?");
@@ -210,7 +226,7 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		$('clienttelephone').value = info.tele[1];
 		$('firstname').value = info.zname[1];
 		$('lastname').value = info.zlast[1];
-		var radios = $('myform').sex.length;
+		var radios = $('myform').sex;
 		for(var i=0; i<radios.length; i++){
 			if(radios[i].value == "male" && info.sex[1] == "male"){
 				radios[i].setAttribute("checked", "checked");
@@ -223,15 +239,16 @@ var weaponChoice = ["--Select Your Weapon of Choice!--", "Gun", "Crowbar", "Gren
 		}
 			$('weapons').value = info.weap[1];
 			$('myform').text.value = info.write[1];
-		    $('stars').value = info.rate[1];
-			$('customer').value = info.inv[1];
+		        $('stars').value = info.rate[1];
 			$('deadLine').value = info.date[1];
+			$('customer').value = info.inv[1];
 			
 		addZombie.removeEventListener("click", storeData);
 		$('button').value = "Save Zombie";
 		var editZombie = $('button');
 		editZombie.addEventListener("click", formValidation);
 		editZombie.key = this.key;
+		
 	} 
 		
 		function formValidation(x){

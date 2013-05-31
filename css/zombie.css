@@ -1,11 +1,15 @@
 body {
-	background-color:black;
+	background-color: black;
 }
 header {
 	font-family:"Copperplate Gothic Bold",sans-serif;
 	color:red;
 	font-size:28px;
-	text-align:center;
+}	
+
+nav {
+	float: left;
+	clear: both;
 }
 h1, h2, h4, a, p {
 	color:red;
@@ -62,6 +66,17 @@ footer {
 .radioButton {
 	margin-top:50px;
 }
+.print {
+	list-style: none;
+}
+#logo {
+	float: left;
+}
+#bgImg {
+	z-index: -9999;
+	float: left;
+	clear: both;
+}
 #but1, #but2, #but3, #but4 {
 	list-style-type:none;
 	display:block;
@@ -94,6 +109,13 @@ footer {
 	clear:both;
 	padding-top:30px;
 }
-
-
+#pic {
+	list-style: none;
+	position: relative;
+	left: -42px;
+	
+}
+#mainUl {
+	list-style: none;
+}
 
